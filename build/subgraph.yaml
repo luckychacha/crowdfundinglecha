@@ -1,0 +1,27 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: CrowdFunding
+    network: goerli
+    source:
+      address: "0x676e172152C0Ba834f9068a2c8d5a0C2F8105542"
+      abi: CrowdFunding
+      startBlock: 8770631
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BidLog
+        - CampaignLog
+      abis:
+        - name: CrowdFunding
+          file: CrowdFunding/abis/CrowdFunding.json
+      eventHandlers:
+        - event: BidLog(uint256,address,uint256)
+          handler: handleBidLog
+        - event: CampaignLog(uint256,address,uint256)
+          handler: handleCampaignLog
+      file: CrowdFunding/CrowdFunding.wasm
